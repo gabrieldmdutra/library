@@ -25,12 +25,12 @@ def auth():
 def create():
     title = request.form['title']
     author = request.form['author']
-    read = request.form['read']
 
-    is_read = False
-
-    if read == "on":
+    try:
+        request.form['read']
         is_read = True
+    except KeyError:
+        is_read = False
 
     book = Books.query.filter_by(title=title).first()
     if book:
@@ -47,3 +47,32 @@ def create():
     db.session.commit()
 
     return redirect(url_for('index'))
+
+@app.route("/update", methods=['POST'])
+def update():
+    book = Books.query.filter_by(id=request.form['id']).first()
+
+    book.title = request.form['title']
+    book.author = request.form['author']
+
+    try:
+        request.form['read']
+        book.is_read = True
+    except KeyError:
+        book.is_read = False
+
+    db.session.add(book)
+    db.session.commit()
+
+    return redirect(url_for('index'))
+
+@app.route("/delete/<int:id>")
+def delete(id):
+    Books.query.filter_by(id=id).delete()
+    db.session.commit()
+
+    flash(f'The book has been deleted!')
+    return redirect(url_for('index'))
+
+def read_book(id):
+    return Books.query.filter_by(id=id).first()
