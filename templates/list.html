@@ -16,8 +16,8 @@
               <td>{{ book.title }}</td>
               <td>{{ book.author }}</td>
               <td>{{ book.is_read }}</td>
-              <td><a href="{{ url_for('edit', id=book.id) }}">Edit</a></td>
-              <td><a href="{{ url_for('delete', id=book.id) }}">Delete</a></td>
+              <td><a class="btn btn-primary" href="{{ url_for('edit', id=book.id) }}">Edit</a></td>
+              <td><a class="btn btn-danger" href="{{ url_for('delete', id=book.id) }}">Delete</a></td>
            </tr>
            {% endfor %}
         </tbody>
