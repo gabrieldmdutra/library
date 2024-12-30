@@ -1,21 +1,14 @@
 from flask import Flask
-from flask import render_template
+from repository.repository import DB
 
 app = Flask(__name__)
+app.config.from_pyfile('config.py')
 
-@app.route("/")
-def home():
-    return render_template('index.html')
+db = DB(app)
 
-@app.route("/books")
-def list_books():
-    return "Listing books..."
+from views import *
+from controllers import *
 
-@app.route("/book/<id>")
-def describe_book(id=None):
-    return render_template('book.html', id=id)
-
-@app.route("/book", methods=['POST'])
-def create_book():
-    return "Creating books..."
+if __name__=='__main__':
+    app.run(host='0.0.0.0', port=8080, debug=True)
 
