@@ -1,7 +1,8 @@
 from app import app
 from controllers import read_book
 from flask import render_template
-from models.models import Books
+from models import Books
+
 
 @app.route("/")
 def index():

@@ -6,8 +6,8 @@ from flask import url_for
 from flask import request
 from flask import flash
 
-from models.models import Users
-from models.models import Books
+from models import Users
+from models import Books
 
 
 @app.route("/auth", methods=['POST'])
